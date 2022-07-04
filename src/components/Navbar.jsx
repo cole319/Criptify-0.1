@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Typography, Avatar, Menu } from "antd";
 import { Link } from "react-router-dom";
 import { BsCoin } from "react-icons/bs";
@@ -10,11 +10,31 @@ import {
   FundOutlined,
 } from "@ant-design/icons";
 
-import icon from "../images/crypto.png";
+// import icon from "../images/crypto.png";
 // import { sizeHeight } from "@mui/system";
 // import { fontSize } from "@mui/system";
 
 const Navbar = () => {
+  const [activeMenu, setActiveMenu] = useState(true);
+  const [screenSize, setScreenSize] = useState(undefined);
+
+  useEffect(() => {
+    const handleResize = () => setScreenSize(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (screenSize <= 800) {
+      setActiveMenu(false);
+    } else {
+      setActiveMenu(true);
+    }
+  }, [screenSize]);
   return (
     <div className="nav-container">
       <div className="logo-container">
@@ -27,7 +47,13 @@ const Navbar = () => {
             Cryptify
           </Link>
         </Typography.Title>
-        {/* <Button className="menu-control-container"></Button> */}
+
+        <Button
+          className="menu-control-container"
+          onClick={() => setActiveMenu(!activeMenu)}
+        >
+          <MenuOutlined />
+        </Button>
       </div>
       <Menu theme="dark">
         <Menu.Item icon={<HomeOutlined />} style={{ fontSize: "1rem" }}>
@@ -36,9 +62,9 @@ const Navbar = () => {
         <Menu.Item icon={<FundOutlined />} style={{ fontSize: "1rem" }}>
           <Link to="/cryptocurrencies">Cryptocurrencies</Link>
         </Menu.Item>
-        <Menu.Item icon={<MoneyCollectOutlined />} style={{ fontSize: "1rem" }}>
+        {/* <Menu.Item icon={<MoneyCollectOutlined />} style={{ fontSize: "1rem" }}>
           <Link to="/exchanges">Exchanges</Link>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item icon={<BulbOutlined />} style={{ fontSize: "1rem" }}>
           <Link to="/news">News</Link>
         </Menu.Item>

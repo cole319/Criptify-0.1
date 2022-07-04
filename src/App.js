@@ -4,7 +4,6 @@ import { Layout, Typography, Space } from "antd";
 import {
   Navbar,
   Homepage,
-  Exchanges,
   Cryptocurrencies,
   CryptoDetails,
   News,
@@ -22,7 +21,7 @@ const App = () => {
           <div className="routes">
             <Routes>
               <Route path="/" element={<Homepage />} />
-              <Route path="/exchanges" element={<Exchanges />} />
+
               <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
               <Route path="/crypto/:coinId" element={<CryptoDetails />} />
               <Route path="/news" element={<News />} />
@@ -34,8 +33,9 @@ const App = () => {
             level={5}
             style={{ color: "white", textAlign: "center" }}
           >
-            Cryptify <br />
-            all rights reserved
+            Copyright © 2022
+            <Link to="/">Cryptify Inc.</Link> <br />
+            All Rights Reserved.
           </Typography.Title>
           <Space>
             <Link
@@ -44,12 +44,7 @@ const App = () => {
             >
               Home
             </Link>
-            <Link
-              to="/exchanges"
-              style={{ color: "white", textDecorationLine: "underline" }}
-            >
-              Exchanges
-            </Link>
+
             <Link
               to="/news"
               style={{ color: "white", textDecorationLine: "underline" }}
